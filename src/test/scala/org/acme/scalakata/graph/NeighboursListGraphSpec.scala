@@ -9,7 +9,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       val graph:Graph = NeighboursListGraph(0)
     }
 
-    ignore("remember number of nodes") {
+    ignore("remembers number of nodes") {
       val graph = NeighboursListGraph(1)
       graph.nodesNumber mustBe 1
     }
@@ -17,7 +17,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
 
   describe("addEdge") {
     ignore("throws NoSuchNode when try to add edge greater than number of edges") {
-      intercept[NoSuchNode] {
+      intercept[NoSuchNode.type] {
         val graph = NeighboursListGraph(1)
         graph.addEdge(0, 1)
       }
@@ -25,22 +25,22 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
 
     ignore("throws NegativeIndex when ask about node with negative index") {
       val graph = NeighboursListGraph(3)
-      intercept[NegativeIndex] {
+      intercept[NegativeIndex.type] {
         graph.addEdge(-1, 0)
       }
-      intercept[NegativeIndex] {
+      intercept[NegativeIndex.type] {
         graph.addEdge(0, -1)
       }
     }
   }
 
   describe("edgesNumber") {
-    ignore("returs 0 for new graph") {
+    ignore("returns 0 for new graph") {
       val graph = NeighboursListGraph(1)
       graph.edgesNumber mustBe 0
     }
 
-    ignore("returs 1 after adding signe edge") {
+    ignore("returns 1 after adding single edge") {
       // when
       val graph = NeighboursListGraph(2)
       graph.addEdge(0,1)
@@ -53,14 +53,14 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
   describe("getNeighbours") {
     ignore("throws NoSuchNode when ask about node with index greater than max") {
       val graph = NeighboursListGraph(1)
-      intercept[NoSuchNode] {
+      intercept[NoSuchNode.type] {
         graph.getNeighbours(1)
       }
     }
 
     ignore("throws NegativeIndex when ask about node with negative index") {
       val graph = NeighboursListGraph(1)
-      intercept[NegativeIndex] {
+      intercept[NegativeIndex.type] {
         graph.getNeighbours(-1)
       }
     }
@@ -74,6 +74,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
     ignore("remember that one neighbour was added on other end (this is undirected graph)") {
       val graph = NeighboursListGraph(2)
       graph.addEdge(0,1)
+
       graph.getNeighbours(1) mustBe List(0)
     }
   }

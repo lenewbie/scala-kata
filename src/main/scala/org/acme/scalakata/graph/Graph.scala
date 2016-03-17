@@ -1,7 +1,7 @@
 package org.acme.scalakata.graph
 
-class NoSuchNode extends RuntimeException
-class NegativeIndex extends RuntimeException
+case object NoSuchNode extends RuntimeException
+case object NegativeIndex extends RuntimeException
 
 trait Graph {
 
