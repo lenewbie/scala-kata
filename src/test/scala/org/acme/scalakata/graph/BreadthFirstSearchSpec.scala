@@ -12,13 +12,13 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
       }
     }
 
-    ignore("throws PathFromNotExistingNode when try to construct from not existing node") {
+    it("throws PathFromNotExistingNode when try to construct from not existing node") {
       intercept[PathFromNotExistingNode] {
         BreadthFirstSearch(NeighboursListGraph(1), 1)
       }
     }
 
-    ignore("throws PathFromNotExistingNode when try to construct from negative node") {
+    it("throws PathFromNotExistingNode when try to construct from negative node") {
       intercept[PathFromNotExistingNode] {
         BreadthFirstSearch(NeighboursListGraph(1), -1)
       }
@@ -27,24 +27,24 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
 
   describe("existsPathTo") {
 
-    ignore("existsPathTo throws NodeNotFound when given not existing vertex") {
+    it("existsPathTo throws NodeNotFound when given not existing vertex") {
       val path = BreadthFirstSearch(NeighboursListGraph(1), 0)
       intercept[NodeNotFound] {
         path.existsPathTo(1)
       }
     }
 
-    ignore("exists path from root element") {
+    it("exists path from root element") {
       val graph: NeighboursListGraph = NeighboursListGraph(1)
       assertExistPathBetween(graph, 0, 0)
     }
 
-    ignore("returns false when argument is not connected") {
+    it("returns false when argument is not connected") {
       val path = BreadthFirstSearch(NeighboursListGraph(2), 0)
       path.existsPathTo(1) mustBe false
     }
 
-    ignore("returns true when there is obvious edge between 3 elements") {
+    it("returns true when there is obvious edge between 3 elements") {
       val graph = NeighboursListGraph(3)
       graph.addEdge(0,1)
       graph.addEdge(1,2)
@@ -52,7 +52,7 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
       assertExistPathBetween(graph, 0, 2)
     }
 
-    ignore("returns true when there is obvious edge between 4 elements") {
+    it("returns true when there is obvious edge between 4 elements") {
       val graph = NeighboursListGraph(4)
       graph.addEdge(0,1)
       graph.addEdge(1,2)
@@ -68,24 +68,24 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
 
   describe("getPathTo") {
 
-    ignore("throws NodeNotFound when given not existing node") {
+    it("throws NodeNotFound when given not existing node") {
       val path = BreadthFirstSearch(NeighboursListGraph(1), 0)
       intercept[NodeNotFound] {
         path.getPathTo(1)
       }
     }
 
-    ignore("path from root element to itself consist of one step") {
+    it("path from root element to itself consist of one step") {
       val path = BreadthFirstSearch(NeighboursListGraph(13), 0)
       path.getPathTo(0) mustBe List(0)
     }
 
-    ignore("returns empty list when given element is not connected") {
+    it("returns empty list when given element is not connected") {
       val path = BreadthFirstSearch(NeighboursListGraph(13), 0)
       path.getPathTo(1) mustBe List.empty[Int]
     }
 
-    ignore("returns root and argument when root is connected to argument") {
+    it("returns root and argument when root is connected to argument") {
       val graph = NeighboursListGraph(13)
       graph.addEdge(0, 1)
 
@@ -93,7 +93,7 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
       path.getPathTo(1) mustBe List(0, 1)
     }
 
-    ignore("returns true when there is obvious edge between 3 elements") {
+    it("returns true when there is obvious edge between 3 elements") {
       val graph = NeighboursListGraph(13)
       graph.addEdge(0,1)
       graph.addEdge(1,2)
@@ -101,7 +101,7 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
       path.getPathTo(2) mustBe List(0, 1, 2)
     }
 
-    ignore("getPathTo returns proper path when there is edge between 3 elements") {
+    it("getPathTo returns proper path when there is edge between 3 elements") {
       val graph = NeighboursListGraph(13)
       graph.addEdge(1, 2)
       graph.addEdge(1, 0)
@@ -109,14 +109,14 @@ class BreadthFirstSearchSpec  extends FunSpec with MustMatchers {
       path.getPathTo(2) mustBe List(0, 1, 2)
     }
 
-    ignore("getPathTo returns empty list when no edge between given object and root") {
+    it("getPathTo returns empty list when no edge between given object and root") {
       val graph = NeighboursListGraph(13)
       graph.addEdge(1,2)
       val path = BreadthFirstSearch(graph, 0)
       path.getPathTo(2) mustBe List[Int]()
     }
 
-    ignore("getPathTo traverse first all path then leaves") {
+    it("getPathTo traverse first all path then leaves") {
       /*
        0 +- 1 -- 3 -- 4
          |            |
