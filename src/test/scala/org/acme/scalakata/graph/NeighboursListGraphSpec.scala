@@ -112,7 +112,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       graph.getNeighbours(1) mustBe List(0, 2)
     }
 
-    ignore("requested node is not it's own neighbour") {
+    it("requested node is not it's own neighbour") {
       val graph = NeighboursListGraph(1)
       graph.addEdge(0,0)
       graph.getNeighbours(0) mustBe List()
