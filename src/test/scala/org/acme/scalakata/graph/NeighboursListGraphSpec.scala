@@ -66,6 +66,14 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
 
       graph.edgesNumber mustBe 1
     }
+
+    ignore("returns number of edges excluding reversed edges") {
+      val graph = NeighboursListGraph(2)
+      graph.addEdge(0,1)
+      graph.addEdge(1,0)
+
+      graph.edgesNumber mustBe 1
+    }
   }
 
   describe("getNeighbours") {
