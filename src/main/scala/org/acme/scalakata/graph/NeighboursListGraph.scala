@@ -5,10 +5,10 @@ object NeighboursListGraph {
 }
 
 class NeighboursListGraph(val nodesNumber: Int) extends Graph {
-  private var edges = Set.empty[(Int, Int)]
+  private var neighbours = Vector.fill(nodesNumber)(Set.empty[Int])
   override def getNeighbours(node: Int): List[Int] = {
     validate(node)
-    List(1)
+    neighbours(node).toList
   }
 
   private def validate(node: Int): Unit = {
@@ -19,16 +19,13 @@ class NeighboursListGraph(val nodesNumber: Int) extends Graph {
   override def addEdge(firstNode: Int, secondNode: Int): Graph = {
     validate(firstNode)
     validate(secondNode)
-    for(newEdge <- createEdge(firstNode, secondNode)){
-      edges = edges + newEdge
+    if(firstNode != secondNode){
+      neighbours = neighbours
+        .updated(firstNode, neighbours(firstNode) + secondNode)
+        .updated(secondNode, neighbours(secondNode) + firstNode)
     }
     this
   }
 
-  private def createEdge(firstNode: Int, secondNode: Int) =
-    if (firstNode < secondNode) Some(firstNode -> secondNode)
-    else if (firstNode > secondNode) Some(secondNode -> firstNode)
-    else None
-
-  override def edgesNumber: Int = edges.size
+  override def edgesNumber: Int = neighbours.foldLeft(0)(_ + _.size) / 2
 }
