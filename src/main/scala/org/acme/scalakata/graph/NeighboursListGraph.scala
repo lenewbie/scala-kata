@@ -7,7 +7,7 @@ object NeighboursListGraph {
 class NeighboursListGraph(val nodesNumber: Int) extends Graph {
   override def getNeighbours(node: Int): List[Int] = ???
 
-  override def addEdge(firstNode: Int, secondNode: Int): Graph = ???
+  override def addEdge(firstNode: Int, secondNode: Int): Graph = throw new NoSuchNode
 
   override def edgesNumber: Int = ???
 }
