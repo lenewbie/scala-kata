@@ -50,13 +50,21 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       graph.edgesNumber mustBe 1
     }
 
-    ignore("returns number of added edges") {
+    it("returns number of added edges") {
       val graph = NeighboursListGraph(4)
       graph.addEdge(0,1)
       graph.addEdge(1,2)
       graph.addEdge(2,3)
 
       graph.edgesNumber mustBe 3
+    }
+
+    ignore("returns number of edges excluding duplicate edges") {
+      val graph = NeighboursListGraph(2)
+      graph.addEdge(0,1)
+      graph.addEdge(0,1)
+
+      graph.edgesNumber mustBe 1
     }
   }
 
