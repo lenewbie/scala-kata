@@ -6,7 +6,7 @@ object NeighboursListGraph {
 
 class NeighboursListGraph(val nodesNumber: Int) extends Graph {
   private var edges = Set.empty[(Int, Int)]
-  override def getNeighbours(node: Int): List[Int] = ???
+  override def getNeighbours(node: Int): List[Int] = throw new NoSuchNode
 
   override def addEdge(firstNode: Int, secondNode: Int): Graph =
     if(firstNode < 0 || secondNode < 0) throw new NegativeIndex

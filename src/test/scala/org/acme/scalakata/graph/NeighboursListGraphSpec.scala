@@ -84,7 +84,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
   }
 
   describe("getNeighbours") {
-    ignore("throws NoSuchNode when called with node index greater or equal to number of nodes") {
+    it("throws NoSuchNode when called with node index greater or equal to number of nodes") {
       val graph = NeighboursListGraph(1)
       intercept[NoSuchNode] {
         graph.getNeighbours(1)
