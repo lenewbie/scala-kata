@@ -12,11 +12,16 @@ class NeighboursListGraph(val nodesNumber: Int) extends Graph {
     if(firstNode < 0 || secondNode < 0) throw new NegativeIndex
     else if(firstNode >= nodesNumber || secondNode >= nodesNumber) throw new NoSuchNode
     else {
-      if(firstNode != secondNode) {
-        edges = edges + (if (firstNode < secondNode) (firstNode, secondNode) else (secondNode, firstNode))
+      for(newEdge <- createEdge(firstNode, secondNode)){
+        edges = edges + newEdge
       }
       this
     }
+
+  private def createEdge(firstNode: Int, secondNode: Int) =
+    if (firstNode < secondNode) Some(firstNode -> secondNode)
+    else if (firstNode > secondNode) Some(secondNode -> firstNode)
+    else None
 
   override def edgesNumber: Int = edges.size
 }
