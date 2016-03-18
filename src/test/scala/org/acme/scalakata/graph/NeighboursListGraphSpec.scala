@@ -43,12 +43,10 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       graph.edgesNumber mustBe 0
     }
 
-    ignore("returs 1 after adding signe edge") {
-      // when
+    ignore("returns 1 after adding single edge") {
       val graph = NeighboursListGraph(2)
       graph.addEdge(0,1)
 
-      // then
       graph.edgesNumber mustBe 1
     }
   }
