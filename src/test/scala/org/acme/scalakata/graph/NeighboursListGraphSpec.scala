@@ -16,10 +16,13 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
   }
 
   describe("addEdge") {
-    ignore("throws NoSuchNode when try to add edge greater than number of edges") {
+    ignore("throws NoSuchNode when called with node index greater or equal to number of nodes") {
+      val graph = NeighboursListGraph(1)
       intercept[NoSuchNode] {
-        val graph = NeighboursListGraph(1)
         graph.addEdge(0, 1)
+      }
+      intercept[NoSuchNode] {
+        graph.addEdge(1, 0)
       }
     }
 
