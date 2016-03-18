@@ -12,7 +12,9 @@ class NeighboursListGraph(val nodesNumber: Int) extends Graph {
     if(firstNode < 0 || secondNode < 0) throw new NegativeIndex
     else if(firstNode >= nodesNumber || secondNode >= nodesNumber) throw new NoSuchNode
     else {
-      edges = edges + (if (firstNode < secondNode) (firstNode, secondNode) else (secondNode, firstNode))
+      if(firstNode != secondNode) {
+        edges = edges + (if (firstNode < secondNode) (firstNode, secondNode) else (secondNode, firstNode))
+      }
       this
     }
 
