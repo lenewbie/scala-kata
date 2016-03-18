@@ -9,7 +9,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       val graph:Graph = NeighboursListGraph(0)
     }
 
-    ignore("remembers number of nodes") {
+    it("remembers number of nodes") {
       val graph = NeighboursListGraph(1)
       graph.nodesNumber mustBe 1
     }

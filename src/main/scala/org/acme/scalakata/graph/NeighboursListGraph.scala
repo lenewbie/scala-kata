@@ -9,7 +9,7 @@ class NeighboursListGraph extends Graph {
 
   override def addEdge(firstNode: Int, secondNode: Int): Graph = ???
 
-  override def nodesNumber: Int = ???
+  override def nodesNumber: Int = 1
 
   override def edgesNumber: Int = ???
 }
