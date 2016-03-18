@@ -104,7 +104,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       graph.getNeighbours(0) mustBe List(1)
     }
 
-    ignore("returns neighbours of node that was used as second node when adding edge (this is undirected graph)") {
+    it("returns neighbours of node that was used as second node when adding edge (this is undirected graph)") {
       val graph = NeighboursListGraph(3)
       graph.addEdge(0,1)
       graph.addEdge(2,1)
