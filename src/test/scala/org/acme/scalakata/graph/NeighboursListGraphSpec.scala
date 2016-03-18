@@ -91,7 +91,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
       }
     }
 
-    ignore("throws NegativeIndex when ask about node with negative index") {
+    ignore("throws NegativeIndex when called with negative node index") {
       val graph = NeighboursListGraph(1)
       intercept[NegativeIndex] {
         graph.getNeighbours(-1)
