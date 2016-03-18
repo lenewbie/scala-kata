@@ -12,5 +12,5 @@ class NeighboursListGraph(val nodesNumber: Int) extends Graph {
     else if(firstNode >= nodesNumber || secondNode >= nodesNumber) throw new NoSuchNode
     else this
 
-  override def edgesNumber: Int = ???
+  override def edgesNumber: Int = 0
 }

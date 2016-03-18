@@ -38,7 +38,7 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
   }
 
   describe("edgesNumber") {
-    ignore("returns 0 for new graph") {
+    it("returns 0 for new graph") {
       val graph = NeighboursListGraph(1)
       graph.edgesNumber mustBe 0
     }
