@@ -1,29 +1,31 @@
 package org.acme.scalakata.graph
 
-import scala.collection.mutable
+object NeighboursListGraph {
+  def apply(nodesNumber: Int) = new NeighboursListGraph(nodesNumber)
+}
 
-case class NeighboursListGraph(nodesNumber:Int) extends Graph {
-
-  private val neighbours:List[mutable.ListBuffer[Int]] =
-    List.fill(nodesNumber)(new mutable.ListBuffer[Int])
-
-  override def addEdge(firstNode: Int, secondNode: Int):Graph = {
-    if(firstNode >= nodesNumber || secondNode >= nodesNumber)
-      throw new NoSuchNode
-    else if(firstNode < 0 || secondNode < 0) throw new NegativeIndex
-    else {
-      neighbours(firstNode) += secondNode
-      neighbours(secondNode) += firstNode
-      this
-    }
-  }
-
+class NeighboursListGraph(val nodesNumber: Int) extends Graph {
+  private var neighbours = Vector.fill(nodesNumber)(Set.empty[Int])
   override def getNeighbours(node: Int): List[Int] = {
-    if(node >= nodesNumber) throw new NoSuchNode
-    else if(node < 0) throw new NegativeIndex
-    else neighbours(node).toList
+    validate(node)
+    neighbours(node).toList
   }
 
-  override def edgesNumber: Int =
-    neighbours.count(_.nonEmpty) / 2
+  private def validate(node: Int): Unit = {
+    if(node >= nodesNumber)throw new NoSuchNode
+    if(node < 0) throw new NegativeIndex
+  }
+
+  override def addEdge(firstNode: Int, secondNode: Int): Graph = {
+    validate(firstNode)
+    validate(secondNode)
+    if(firstNode != secondNode){
+      neighbours = neighbours
+        .updated(firstNode, neighbours(firstNode) + secondNode)
+        .updated(secondNode, neighbours(secondNode) + firstNode)
+    }
+    this
+  }
+
+  override def edgesNumber: Int = neighbours.foldLeft(0)(_ + _.size) / 2
 }
