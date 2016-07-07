@@ -11,6 +11,7 @@ class WeightedNeighboursList(override val nodesNumber:Int) extends WeightedGraph
 
   private val neighbours:List[mutable.ListBuffer[Int]] =
     List.fill(nodesNumber)(new mutable.ListBuffer[Int])
+  private var weights = Map[(Int, Int), Double]()
 
   override def addEdge(firstNode: Int, secondNode: Int, weight: Double):WeightedGraph = {
     if(firstNode >= nodesNumber || secondNode >= nodesNumber)
@@ -18,7 +19,10 @@ class WeightedNeighboursList(override val nodesNumber:Int) extends WeightedGraph
     else if(firstNode < 0 || secondNode < 0) throw new NegativeIndex
     else {
       neighbours(firstNode) += secondNode
+      weights = weights + ((firstNode, secondNode) -> weight)
+
       neighbours(secondNode) += firstNode
+      weights = weights + ((secondNode, firstNode) -> weight)
       this
     }
   }
@@ -31,5 +35,8 @@ class WeightedNeighboursList(override val nodesNumber:Int) extends WeightedGraph
 
   override def edgesNumber: Int =
     neighbours.count(_.nonEmpty) / 2
+
+  override def getWeight(start: Int, end: Int): Option[Double] =
+    weights get (start, end)
 
 }

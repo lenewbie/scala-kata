@@ -10,4 +10,6 @@ trait WeightedGraph {
 
   def edgesNumber: Int
 
+  def getWeight(start: Int, end: Int): Option[Double]
+
 }
