@@ -43,7 +43,7 @@ class WeightedNeighboursListSpec extends FunSpec with MustMatchers {
       graph.edgesNumber mustBe 0
     }
 
-    it("returns 1 after adding signe edge") {
+    it("returns 1 after adding single edge") {
       // when
       val graph = WeightedNeighboursList(2)
       graph.addEdge(0, 1, randomWeight)
@@ -82,8 +82,27 @@ class WeightedNeighboursListSpec extends FunSpec with MustMatchers {
   }
 
   describe("weight") {
-    it("return None if there is no edge") {
+    it("returns None if there is no edge") {
+      val graph = WeightedNeighboursList(2)
+      graph.getWeight(0, 1) mustBe None
+    }
 
+    it("returns weight of edge") {
+      val graph = WeightedNeighboursList(2)
+      graph.addEdge(0, 1, 42.0)
+      graph.getWeight(0, 1) mustBe Some(42.0)
+    }
+
+    it("returns weight of edge from end to start") {
+      val graph = WeightedNeighboursList(2)
+      graph.addEdge(0, 1, 42.0)
+      graph.getWeight(1, 0) mustBe Some(42.0)
+    }
+
+    it("returns 1 by default") {
+      val graph = WeightedNeighboursList(2)
+      graph.addEdge(0, 1)
+      graph.getWeight(1, 0) mustBe Some(1.0)
     }
   }
 
