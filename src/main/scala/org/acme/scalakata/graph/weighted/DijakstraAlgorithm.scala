@@ -2,7 +2,7 @@ package org.acme.scalakata.graph.weighted
 
 import org.acme.scalakata.graph.{NodeNotFound, PathFinder, PathFromEmptyGraph, PathFromNotExistingNode}
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 
 object DijakstraAlgorithm {
@@ -19,16 +19,36 @@ object DijakstraAlgorithm {
 
 class DijakstraAlgorithm(graph: WeightedGraph, start:Int) extends PathFinder {
 
-  private val neighboursNodes: ListBuffer[Option[Int]] = ListBuffer.fill[Option[Int]](graph.nodesNumber)(None)
+  protected val previous: ListBuffer[Option[Int]] = ListBuffer.fill[Option[Int]](graph.nodesNumber)(None)
+  protected val relaxed = ListBuffer.fill[Option[Boolean]](graph.nodesNumber)(None)
+  protected val weight = ArrayBuffer.fill[Option[Double]](graph.nodesNumber)(None)
 
-  initialize(List(start))
+  relaxStartNode()
+  relaxRest()
 
-  private def initialize(toProcess:List[Int]): Unit = {
+  protected def relaxStartNode() = {
+//    graph
+//      .getNeighbours(start)
+//      .foreach {
+//        node =>
+//          previous(node) = Some(start)
+//          weight(node) = graph.getWeight(start, node)
+//          relaxed(start) = Some(true)
+//      }
+  }
+
+  def relaxRest() = {
+    //
+  }
+
+  relaxNodes(List(start))
+
+  private def relaxNodes(toProcess:List[Int]): Unit = {
     if(toProcess.nonEmpty) {
       val currNode = toProcess.head
-      val children = graph.getNeighbours(currNode).filter(neighboursNodes(_).isEmpty)
-      children.foreach(neighboursNodes(_) = Some(currNode))
-      initialize(toProcess.tail ++ children)
+      val children = graph.getNeighbours(currNode).filter(previous(_).isEmpty)
+      children.foreach(previous(_) = Some(currNode))
+      relaxNodes(toProcess.tail ++ children)
     }
   }
 
@@ -36,18 +56,18 @@ class DijakstraAlgorithm(graph: WeightedGraph, start:Int) extends PathFinder {
     if(destination >= graph.nodesNumber )
       throw new NodeNotFound
     else if(destination == start) true
-    else neighboursNodes(destination).isDefined
+    else previous(destination).isDefined
 
   override def getPathTo(destination: Int): List[Int] =
     if(destination >= graph.nodesNumber )
       throw new NodeNotFound
     else if(destination == start) List(start)
-    else if(neighboursNodes(destination).isEmpty) List[Int]()
+    else if(previous(destination).isEmpty) List[Int]()
     else getPathTo(destination, List[Int]())
 
 
   private def getPathTo(node:Int, soFar:List[Int]):List[Int] =
     if(node == start) start :: soFar
-    else getPathTo(neighboursNodes(node).get, node :: soFar)
+    else getPathTo(previous(node).get, node :: soFar)
 
 }

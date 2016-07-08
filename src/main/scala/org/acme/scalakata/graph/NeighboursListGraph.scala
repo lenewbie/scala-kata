@@ -2,7 +2,14 @@ package org.acme.scalakata.graph
 
 import scala.collection.mutable
 
-case class NeighboursListGraph(nodesNumber:Int) extends Graph {
+object NeighboursListGraph {
+  
+  def apply(nodesNumber:Int) =
+    new NeighboursListGraph(nodesNumber)
+
+}
+
+class NeighboursListGraph(val nodesNumber:Int) extends Graph {
 
   private val neighbours:List[mutable.ListBuffer[Int]] =
     List.fill(nodesNumber)(new mutable.ListBuffer[Int])

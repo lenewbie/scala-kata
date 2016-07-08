@@ -6,6 +6,9 @@ import org.scalatest.{FunSpec, MustMatchers}
 
 class DijakstraAlgorithmSpec extends FunSpec with MustMatchers {
 
+
+  // should behave like BFS when all edges have identical weight
+
   describe("factory method") {
 
     it("throws PathFromEmptyGraph when pass empty Graph") {
@@ -133,6 +136,26 @@ class DijakstraAlgorithmSpec extends FunSpec with MustMatchers {
 
       val path = DijakstraAlgorithm(graph, 0)
 
+      path.getPathTo(4) mustBe List(0, 2, 4)
+    }
+  }
+
+  // weight specific stuff
+  describe("relax start node") {
+    ignore("") {
+      /*
+       0 +- 1 -- 3 -- 4
+         |            |
+         +- 2 --------+
+       */
+      val graph = WeightedNeighboursList(13)
+      graph.addEdge(0,1)
+      graph.addEdge(0,2)
+      graph.addEdge(1,3)
+      graph.addEdge(3,4)
+      graph.addEdge(2,4)
+
+      val path = new DijakstraAlgorithmRelaxingOnlyRoot(graph, 0)
       path.getPathTo(4) mustBe List(0, 2, 4)
     }
   }
