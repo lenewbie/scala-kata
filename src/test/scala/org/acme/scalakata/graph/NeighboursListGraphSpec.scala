@@ -41,48 +41,72 @@ class NeighboursListGraphSpec extends FunSpec with MustMatchers {
     }
 
     ignore("returns 1 after adding single edge") {
-      // when
       val graph = NeighboursListGraph(2)
-      graph.addEdge(0,1)
+        .addEdge(0,1)
 
-      // then
       graph.edgesNumber mustBe 1
     }
 
     ignore("returns number of added edges") {
-      val graph = NeighboursListGraph(4)
-      graph.addEdge(0,1)
-      graph.addEdge(1,2)
-      graph.addEdge(2,3)
+      val graph =
+        NeighboursListGraph(4)
+          .addEdge(0,1)
+          .addEdge(1,2)
+          .addEdge(2,3)
 
       graph.edgesNumber mustBe 3
+    }
+
+    ignore("returns number of edges excluding duplicate edges") {
+      val graph =
+        NeighboursListGraph(2)
+          .addEdge(0,1)
+          .addEdge(0,1)
+
+      graph.edgesNumber mustBe 1
+    }
+
+    ignore("returns number of edges excluding reversed edges") {
+      val graph =
+        NeighboursListGraph(2)
+          .addEdge(0,1)
+          .addEdge(1,0)
+
+      graph.edgesNumber mustBe 1
+    }
+
+    ignore("returns number of edges excluding loops") {
+      val graph = NeighboursListGraph(1)
+      graph.addEdge(0,0)
+
+      graph.edgesNumber mustBe 0
     }
   }
 
   describe("getNeighbours") {
-    ignore("throws NoSuchNode when ask about node with index greater than max") {
+    ignore("throws NoSuchNode when called with node index greater or equal to number of nodes") {
       val graph = NeighboursListGraph(1)
       intercept[NoSuchNode.type] {
         graph.getNeighbours(1)
       }
     }
 
-    ignore("throws NegativeIndex when ask about node with negative index") {
+    ignore("throws NegativeIndex when called with negative node index") {
       val graph = NeighboursListGraph(1)
       intercept[NegativeIndex.type] {
         graph.getNeighbours(-1)
       }
     }
 
-    ignore("remember that one neighbour was added") {
+    ignore("returns neighbours of requested node") {
       val graph = NeighboursListGraph(2)
-      graph.addEdge(0,1)
+        .addEdge(0,1)
       graph.getNeighbours(0) mustBe List(1)
     }
 
-    ignore("remember that one neighbour was added on other end (this is undirected graph)") {
+    ignore("returns neighbours of node that was used as second node when adding edge (this is undirected graph)") {
       val graph = NeighboursListGraph(2)
-      graph.addEdge(0,1)
+        .addEdge(0,1)
 
       graph.getNeighbours(1) mustBe List(0)
     }
